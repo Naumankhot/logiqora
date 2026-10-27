@@ -3,7 +3,7 @@
 Welcome to the official source code for **LOGIQORA**, an award-winning creative technology studio and digital design agency website.
 
 ## 🌐 Live Preview
-Experience the live website here: [https://your-username.github.io/logiqora/](https://your-username.github.io/logiqora/)
+Experience the live website here: [https://naumankhot.github.io/logiqora/](https://your-username.github.io/logiqora/)
 
 ## ✨ Key Features
 - **Cinematic Brand Intro:** Smooth SVG and CSS splash screen with the official abstract LQ monogram.
