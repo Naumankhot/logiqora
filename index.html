@@ -183,6 +183,35 @@
             background: rgba(8, 21, 46, 0.85);
             backdrop-filter: blur(12px);
         }
+
+
+        /* LOGIQORA mobile viewport and right-gap fix (2026-10-28) */
+        *, *::before, *::after { box-sizing: border-box; }
+        html { width: 100%; max-width: 100%; overflow-x: clip; }
+        body { width: 100%; max-width: 100%; margin: 0; overflow-x: clip; }
+        img, video, canvas, iframe, svg { max-width: 100%; }
+        section, header, footer, main, nav { max-width: 100%; }
+        #bg-canvas { width: 100%; max-width: 100%; }
+        @media (max-width: 767px) {
+            .max-w-7xl, .max-w-4xl, .max-w-3xl, .max-w-2xl, .max-w-xl, .max-w-lg, .max-w-md {
+                max-width: 100%;
+            }
+            header > div, footer > div { width: 100%; }
+            section { width: 100%; }
+            section .grid { min-width: 0; }
+            section .grid > * { min-width: 0; }
+            h1, h2, h3, p, a, button { overflow-wrap: anywhere; }
+            .animate-float { animation-duration: 8s; }
+            #portfolio-modal, #contact-modal { padding-left: 12px; padding-right: 12px; }
+        }
+        @media (max-width: 420px) {
+            .max-w-7xl { padding-left: 14px; padding-right: 14px; }
+            .glass-card { min-width: 0; }
+            button, a { max-width: 100%; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+        }
     </style>
 </head>
 <body class="relative">
@@ -992,7 +1021,7 @@
 
                 <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
                     <h4 class="text-xs font-bold text-slate-800 uppercase">Technologies Deployed</h4>
-                    <div id="modal-[#1677F9] tech-stack" class="flex flex-wrap gap-2 text-xs text-slate-600 font-semibold">
+                    <div id="modal-tech-stack" class="flex flex-wrap gap-2 text-xs text-slate-600 font-semibold">
                         <!-- Populated dynamically -->
                     </div>
                 </div>
@@ -1200,7 +1229,7 @@
             document.getElementById('modal-img').src = data.img;
             document.getElementById('modal-desc').innerText = data.desc;
 
-            const techContainer = document.getElementById('modal-[#1677F9] tech-stack');
+            const techContainer = document.getElementById('modal-tech-stack');
             techContainer.innerHTML = '';
             data.tech.forEach(t => {
                 const badge = document.createElement('span');
