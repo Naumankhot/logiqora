@@ -3,6 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LOGIQORA designs modern, responsive websites and digital experiences for brands, startups and businesses. Explore our work and start a project.">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta name="theme-color" content="#F7FAFF">
+    <link rel="canonical" href="https://naumankhot.github.io/logiqora/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="LOGIQORA">
+    <meta property="og:title" content="LOGIQORA | Creative Technology Studio">
+    <meta property="og:description" content="Modern, responsive websites and digital experiences designed by LOGIQORA.">
+    <meta property="og:url" content="https://naumankhot.github.io/logiqora/">
+    <meta property="og:image" content="https://naumankhot.github.io/logiqora/1000165766.png">
+    <meta property="og:image:alt" content="LOGIQORA logo">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="LOGIQORA | Creative Technology Studio">
+    <meta name="twitter:description" content="Modern, responsive websites and digital experiences designed by LOGIQORA.">
+    <meta name="twitter:image" content="https://naumankhot.github.io/logiqora/1000165766.png">
+    <script type="application/ld+json" id="logiqoraStructuredData">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "LOGIQORA",
+      "url": "https://naumankhot.github.io/logiqora/",
+      "logo": "https://naumankhot.github.io/logiqora/1000165766.png",
+      "description": "Creative technology studio designing responsive websites and digital experiences.",
+      "telephone": "+91 82755 44003",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+91 82755 44003",
+        "contactType": "sales",
+        "availableLanguage": ["English", "Hindi"]
+      },
+      "areaServed": "IN"
+    }
+    </script>
     <title>LOGIQORA | Ultra-Premium Creative Technology Studio</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -183,35 +216,40 @@
             background: rgba(8, 21, 46, 0.85);
             backdrop-filter: blur(12px);
         }
-
-
-        /* LOGIQORA mobile viewport and right-gap fix (2026-10-28) */
-        *, *::before, *::after { box-sizing: border-box; }
-        html { width: 100%; max-width: 100%; overflow-x: clip; }
-        body { width: 100%; max-width: 100%; margin: 0; overflow-x: clip; }
+    
+        /* Daily responsive guard — fixes mobile right-edge gaps/overflow without changing the intro loader. */
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: clip;
+        }
+        body { min-width: 0; }
         img, video, canvas, iframe, svg { max-width: 100%; }
-        section, header, footer, main, nav { max-width: 100%; }
-        #bg-canvas { width: 100%; max-width: 100%; }
+        main, header, footer, section, nav { min-width: 0; }
+        #bg-canvas {
+            width: 100vw;
+            max-width: 100vw;
+            height: 100vh;
+        }
         @media (max-width: 767px) {
-            .max-w-7xl, .max-w-4xl, .max-w-3xl, .max-w-2xl, .max-w-xl, .max-w-lg, .max-w-md {
+            .max-w-7xl, .max-w-4xl, .max-w-3xl, .max-w-2xl,
+            .max-w-xl, .max-w-lg, .max-w-md {
+                width: 100%;
                 max-width: 100%;
             }
-            header > div, footer > div { width: 100%; }
-            section { width: 100%; }
-            section .grid { min-width: 0; }
-            section .grid > * { min-width: 0; }
-            h1, h2, h3, p, a, button { overflow-wrap: anywhere; }
-            .animate-float { animation-duration: 8s; }
-            #portfolio-modal, #contact-modal { padding-left: 12px; padding-right: 12px; }
+            .grid, .grid > *, .glass-card, .glass-card-dark, .gradient-border {
+                min-width: 0;
+                max-width: 100%;
+            }
+            #portfolio-modal, #success-modal {
+                max-width: 100vw;
+            }
         }
         @media (max-width: 420px) {
-            .max-w-7xl { padding-left: 14px; padding-right: 14px; }
-            .glass-card { min-width: 0; }
-            button, a { max-width: 100%; }
+            .max-w-7xl.mx-auto { width: 100%; }
+            .grid > * { min-width: 0; }
         }
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-        }
+
     </style>
 </head>
 <body class="relative">
@@ -268,7 +306,7 @@
                     <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
                 </a>
                 
-                <button id="mobile-menu-btn" class="md:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 text-[#101A2F] focus:outline-none">
+                <button id="mobile-menu-btn" class="md:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 text-[#101A2F] focus:outline-none" aria-controls="mobile-drawer" aria-expanded="false" aria-label="Open navigation menu">
                     <i class="fa-solid fa-bars text-lg"></i>
                 </button>
             </div>
@@ -1075,19 +1113,30 @@
         const mobileDrawer = document.getElementById('mobile-drawer');
 
         if (mobileBtn && mobileDrawer) {
+            const closeMobileDrawer = () => {
+                mobileDrawer.classList.add('-translate-y-full', 'opacity-0', 'pointer-events-none');
+                mobileBtn.setAttribute('aria-expanded', 'false');
+                mobileBtn.setAttribute('aria-label', 'Open navigation menu');
+            };
             mobileBtn.addEventListener('click', () => {
                 const isHidden = mobileDrawer.classList.contains('pointer-events-none');
                 if (isHidden) {
                     mobileDrawer.classList.remove('-translate-y-full', 'opacity-0', 'pointer-events-none');
+                    mobileBtn.setAttribute('aria-expanded', 'true');
+                    mobileBtn.setAttribute('aria-label', 'Close navigation menu');
                 } else {
-                    mobileDrawer.classList.add('-translate-y-full', 'opacity-0', 'pointer-events-none');
+                    closeMobileDrawer();
                 }
             });
 
             document.querySelectorAll('.mobile-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileDrawer.classList.add('-translate-y-full', 'opacity-0', 'pointer-events-none');
-                });
+                link.addEventListener('click', closeMobileDrawer);
+            });
+            document.addEventListener('keydown', event => {
+                if (event.key === 'Escape' && !mobileDrawer.classList.contains('pointer-events-none')) {
+                    closeMobileDrawer();
+                    mobileBtn.focus();
+                }
             });
         }
 
@@ -1116,7 +1165,12 @@
                 });
             }
 
+            let bgAnimationFrame = null;
             function animateBg() {
+                if (document.hidden) {
+                    bgAnimationFrame = null;
+                    return;
+                }
                 ctx.clearRect(0, 0, width, height);
 
                 for (let i = 0; i < particles.length; i++) {
@@ -1145,8 +1199,13 @@
                         }
                     }
                 }
-                requestAnimationFrame(animateBg);
+                bgAnimationFrame = requestAnimationFrame(animateBg);
             }
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden && bgAnimationFrame === null) {
+                    bgAnimationFrame = requestAnimationFrame(animateBg);
+                }
+            });
             animateBg();
         }
 
